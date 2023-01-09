@@ -20,15 +20,17 @@
   },
   "settings": {
     "react": {
-      "version": "16"
+      "version": "18"
     }
   },
   "rules": {
     "space-before-function-paren": 0,
-    "react/prop-types": 0,
+    "react/prop-types": 2,
     "react/jsx-handler-names": 0,
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
-    "import/export": 0
+    "import/export": 0,
+    "no-unused-vars": 0,
+    "prettier/prettier": 2
   }
 }

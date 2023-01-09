@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import MultiFilters from '.';
 
-describe('ExampleComponent', () => {
+describe('MultiFilters', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+    expect(MultiFilters).toBeTruthy();
+  });
+});

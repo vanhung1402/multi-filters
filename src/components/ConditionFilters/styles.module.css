@@ -1,0 +1,30 @@
+.container {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+}
+
+.container table tr td input, .container table tr td select {
+  width: 100%;
+  padding: 5px 8px;
+}
+
+.container .btnAddAnotherFilterWrapper {
+  text-align: left;
+  padding-top: 12px;
+}
+
+.container .btnAddAnotherFilter {
+  background-color: white;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 5px 15px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.container .btnAddAnotherFilter::before {
+  content: "\2795";
+  margin-right: 4px;
+}
