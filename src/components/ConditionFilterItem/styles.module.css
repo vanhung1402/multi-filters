@@ -8,6 +8,11 @@
   transition: all .2s ease-in;
 }
 
+.removeCondition {
+  align-items: center;
+  display: inline-flex;
+}
+
 .btnRemoveCondition {
   background-color: #6c757d;
   fill: currentColor;
@@ -15,6 +20,12 @@
   border-radius: 5px;
   cursor: pointer;
   border: 1px solid #6c757d;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  padding: 0;
 }
 
 .btnRemoveCondition:hover {

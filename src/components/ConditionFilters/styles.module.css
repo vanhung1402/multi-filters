@@ -32,3 +32,7 @@
   content: "\2795";
   margin-right: 4px;
 }
+
+tfoot.tfoot tr th {
+  background-color: transparent;
+}
