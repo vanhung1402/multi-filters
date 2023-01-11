@@ -86,6 +86,8 @@ const ConditionFilterItem = (props: Props) => {
     setConditionValues({ [conditionInputId]: e.target.value });
   };
 
+  const stopPropagation = (e: any) => e.stopPropagation();
+
   const conditionTypes = useMemo(() => {
     return getConditionType(condition.field);
   }, [condition.field]);
@@ -105,6 +107,7 @@ const ConditionFilterItem = (props: Props) => {
           id={`field-${condition.id}`}
           name={`field-${condition.id}`}
           onChange={handleChangeFilterField}
+          onClick={stopPropagation}
         >
           {fields.map((field) => (
             <option key={field.key} value={field.key}>
@@ -119,6 +122,7 @@ const ConditionFilterItem = (props: Props) => {
           id={`condition-type-${condition.id}`}
           name={`condition-type-${condition.id}`}
           onChange={handleChangeFilterConditionType}
+          onClick={stopPropagation}
         >
           {conditionTypes.map((type: any) => (
             <option key={type.key} value={type.key}>
@@ -143,6 +147,7 @@ const ConditionFilterItem = (props: Props) => {
                     condition.values ? condition.values[conditionInputId] : ''
                   }
                   onBlur={(e) => handleChangeValue(e, conditionInputId)}
+                  onClick={stopPropagation}
                 />
               );
 
@@ -155,9 +160,14 @@ const ConditionFilterItem = (props: Props) => {
                       condition.values ? condition.values[conditionInputId] : ''
                     }
                     onChange={(e) => handleChangeValue(e, conditionInputId)}
+                    onClick={stopPropagation}
                   >
                     {valueOption.valueInputOptions?.map((option: any) => (
-                      <option key={option.value} value={option.value}>
+                      <option
+                        key={option.value}
+                        value={option.value}
+                        onClick={stopPropagation}
+                      >
                         {option.label}
                       </option>
                     ))}
