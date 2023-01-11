@@ -50,6 +50,7 @@ const ConditionFilterItem = (props: Props) => {
   };
 
   const handleChangeFilterField = (e: any) => {
+    e.stopPropagation();
     e.persist();
 
     if (!e.target) return;
@@ -65,6 +66,7 @@ const ConditionFilterItem = (props: Props) => {
   };
 
   const handleChangeFilterConditionType = (e: any) => {
+    e.stopPropagation();
     setSelectedConditionType(
       conditionTypes.find((type: any) => e.target.value === type.key)
     );
@@ -76,6 +78,7 @@ const ConditionFilterItem = (props: Props) => {
   };
 
   const handleChangeValue = (e: any, conditionInputId: string) => {
+    e.stopPropagation();
     e.persist();
 
     if (!e.target) return;

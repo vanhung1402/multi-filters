@@ -43,7 +43,10 @@ const OrderBy = (props: Props) => {
     setSortObj({ ...sortObj, isSortAsc: !sortObj.isSortAsc });
   };
 
-  const handleClickSelectField = (field: FieldType) => {
+  const handleClickSelectField = (e: any, field: FieldType) => {
+    e.stopPropagation();
+    e.preventDefault();
+
     const newSortObj =
       field.key === fieldSort
         ? {
@@ -79,7 +82,7 @@ const OrderBy = (props: Props) => {
             {fields.map((field) => (
               <li
                 key={field.key}
-                onClick={() => handleClickSelectField(field)}
+                onClick={(e) => handleClickSelectField(e, field)}
                 className={classNames({
                   [styles.active]: field.key === sortObj.fieldSort
                 })}
