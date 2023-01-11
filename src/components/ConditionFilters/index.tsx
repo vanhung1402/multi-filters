@@ -57,7 +57,7 @@ const ConditionFilters = (props: Props) => {
             </tr>
           )}
         </tbody>
-        <tfoot>
+        <tfoot className={styles.tfoot}>
           <tr>
             <th colSpan={5} className={styles.btnAddAnotherFilterWrapper}>
               <button
