@@ -17,19 +17,23 @@ interface Props {
 const ConditionFilters = (props: Props) => {
   const { fields, conditionList, setConditionList, className, ...rest } = props;
 
-  const handleClickAddAnotherFilter = useCallback(() => {
-    const id = new Date().getTime();
-    const newCondition = {
-      id,
-      field: fields[0]?.key,
-      values: null,
-      type: {}
-    };
-    setConditionList((conditionList: any[]) => [
-      ...conditionList,
-      newCondition
-    ]);
-  }, [conditionList]);
+  const handleClickAddAnotherFilter = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      const id = new Date().getTime();
+      const newCondition = {
+        id,
+        field: fields[0]?.key,
+        values: null,
+        type: {}
+      };
+      setConditionList((conditionList: any[]) => [
+        ...conditionList,
+        newCondition
+      ]);
+    },
+    [conditionList]
+  );
 
   const handleRemoveCondition = (conditionId: number) => {
     setConditionList((conditionList: any[]) =>
