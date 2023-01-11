@@ -34,6 +34,7 @@ const conditionTypesMap = {
         {
           valueInputType: 'select',
           valueInputOptions: [
+            { label: '--Unselect--', value: '' },
             { label: 'Yes', value: true },
             { label: 'No', value: false }
           ]
@@ -115,6 +116,7 @@ const conditionTypesMap = {
         {
           valueInputType: 'select',
           valueInputOptions: [
+            { label: '--Unselect--', value: '' },
             { label: 'Yes', value: true },
             { label: 'No', value: false }
           ]
@@ -176,6 +178,7 @@ const conditionTypesMap = {
         {
           valueInputType: 'select',
           valueInputOptions: [
+            { label: '--Unselect--', value: '' },
             { label: 'Yes', value: true },
             { label: 'No', value: false }
           ]
@@ -241,6 +244,7 @@ const conditionTypesMap = {
         {
           valueInputType: 'select',
           valueInputOptions: [
+            { label: '--Unselect--', value: '' },
             { label: 'Yes', value: true },
             { label: 'No', value: false }
           ]
@@ -256,6 +260,7 @@ const conditionTypesMap = {
         {
           valueInputType: 'select',
           valueInputOptions: [
+            { label: '--Unselect--', value: '' },
             { label: 'Yes', value: true },
             { label: 'No', value: false }
           ]

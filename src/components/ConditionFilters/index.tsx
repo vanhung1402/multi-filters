@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 
 import ConditionFilterItem from 'components/ConditionFilterItem';
@@ -17,37 +17,24 @@ interface Props {
 const ConditionFilters = (props: Props) => {
   const { fields, conditionList, setConditionList, className, ...rest } = props;
 
-  const handleClickAddAnotherFilter = () => {
+  const handleClickAddAnotherFilter = useCallback(() => {
+    const id = new Date().getTime();
     const newCondition = {
-      id: new Date().getTime(),
+      id,
       field: fields[0]?.key,
-      value: null
+      values: null,
+      type: {}
     };
     setConditionList((conditionList: any[]) => [
       ...conditionList,
       newCondition
     ]);
-  };
-
-  const handleChangeField = (conditionId: number, fieldKey: string) => {
-    setConditionList((conditionList: any[]) =>
-      conditionList.map((condition) =>
-        conditionId === condition.id
-          ? { ...condition, field: fieldKey }
-          : condition
-      )
-    );
-  };
+  }, [conditionList]);
 
   const handleRemoveCondition = (conditionId: number) => {
     setConditionList((conditionList: any[]) =>
       conditionList.filter((condition) => condition.id !== conditionId)
     );
-  };
-
-  const handleChangeValue = (conditionId: number, conditionValues: any) => {
-    console.log('conditionValues: ', conditionValues);
-    console.log('conditionId: ', conditionId);
   };
 
   return (
@@ -60,12 +47,7 @@ const ConditionFilters = (props: Props) => {
                 key={condition.id}
                 condition={condition}
                 fields={fields}
-                onChangeField={(fieldKey: string) =>
-                  handleChangeField(condition.id, fieldKey)
-                }
-                onChangeValues={(conditionValues: any) =>
-                  handleChangeValue(condition.id, conditionValues)
-                }
+                setConditionList={setConditionList}
                 onRemoveCondition={() => handleRemoveCondition(condition.id)}
               />
             ))

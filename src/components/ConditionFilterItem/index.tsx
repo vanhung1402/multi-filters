@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import TrashIcon from 'components/common/icons/trash';
 import conditionTypesMap, {
@@ -11,46 +11,57 @@ import styles from './styles.module.css';
 interface Props {
   condition: any;
   fields: FieldType[];
-  onChangeField: any;
-  onChangeValues: any;
+  setConditionList: any;
   onRemoveCondition: any;
 }
 
 const ConditionFilterItem = (props: Props) => {
-  const {
-    fields,
-    condition,
-    onChangeField,
-    onChangeValues,
-    onRemoveCondition
-  } = props;
+  const { fields, condition, setConditionList, onRemoveCondition } = props;
 
-  const [selectedField, setSelectedField] = useState(condition.field);
-  const [selectedConditionType, setSelectedConditionType] = useState<any>({});
-  const [conditionValues, setConditionValues] = useState<any>({});
-
-  const conditionTypes = useMemo(() => {
+  const getConditionType = (conditionField: string) => {
     const dataType = fields.find(
-      (field) => field.key === selectedField
+      (field) => field.key === conditionField
     )?.dataType;
 
     return conditionTypesMap[dataType || DEFAULT_TYPE];
-  }, [selectedField]);
+  };
 
-  useEffect(() => {
-    onChangeField(selectedField);
-  }, [selectedField]);
+  const setSelectedConditionType = (type: any) => {
+    setConditionList((conditionList: any[]) =>
+      conditionList.map((c) => (c.id === condition.id ? { ...c, type } : c))
+    );
+    resetConditionValues();
+  };
 
-  useEffect(() => {
-    !!conditionTypes?.length && setSelectedConditionType(conditionTypes[0]);
-  }, [conditionTypes]);
+  const setConditionValues = (values: any) => {
+    setConditionList((conditionList: any[]) =>
+      conditionList.map((c) =>
+        c.id === condition.id ? { ...c, values: { ...c.values, ...values } } : c
+      )
+    );
+  };
 
-  useEffect(() => {
-    !!Object.keys(conditionValues).length && onChangeValues(conditionValues);
-  }, [conditionValues]);
+  const resetConditionValues = () => {
+    setConditionList((conditionList: any[]) =>
+      conditionList.map((c) =>
+        c.id === condition.id ? { ...c, values: {} } : c
+      )
+    );
+  };
 
   const handleChangeFilterField = (e: any) => {
-    setSelectedField(e.target.value);
+    e.persist();
+
+    if (!e.target) return;
+
+    const conditionTypes = getConditionType(e.target.value);
+    setConditionList((conditionList: any[]) =>
+      conditionList.map((c) =>
+        c.id === condition.id
+          ? { ...c, field: e.target.value, type: conditionTypes[0] }
+          : c
+      )
+    );
   };
 
   const handleChangeFilterConditionType = (e: any) => {
@@ -69,19 +80,25 @@ const ConditionFilterItem = (props: Props) => {
 
     if (!e.target) return;
 
-    console.log('conditionValues: ', conditionValues);
-    setConditionValues((conditionValues: any) => ({
-      ...conditionValues,
-      [conditionInputId]: e.target.value
-    }));
+    setConditionValues({ [conditionInputId]: e.target.value });
   };
+
+  const conditionTypes = useMemo(() => {
+    return getConditionType(condition.field);
+  }, [condition.field]);
+
+  useEffect(() => {
+    !!conditionTypes?.length &&
+      !Object.keys(condition.type).length &&
+      setSelectedConditionType(conditionTypes[0]);
+  }, [conditionTypes]);
 
   return (
     <tr className={styles.conditionItem}>
       <td>Where</td>
       <td>
         <select
-          value={selectedField}
+          value={condition.field}
           id={`field-${condition.id}`}
           name={`field-${condition.id}`}
           onChange={handleChangeFilterField}
@@ -95,7 +112,7 @@ const ConditionFilterItem = (props: Props) => {
       </td>
       <td>
         <select
-          value={selectedConditionType.key}
+          value={condition.type?.key}
           id={`condition-type-${condition.id}`}
           name={`condition-type-${condition.id}`}
           onChange={handleChangeFilterConditionType}
@@ -109,16 +126,20 @@ const ConditionFilterItem = (props: Props) => {
       </td>
       <td>
         <div className={styles.conditionValueTypeOptions}>
-          {selectedConditionType.valueTypeOptions?.map(
+          {condition.type?.valueTypeOptions?.map(
             (valueOption: any, index: number) => {
-              const conditionInputId = `input-${condition.id}-${index}`;
+              const conditionInputId = `input-${condition.id}-${index}-${
+                valueOption.valueName || 'value'
+              }`;
               let InputComponent = () => (
                 <input
                   key={conditionInputId}
                   type={valueOption.valueType}
                   placeholder={valueOption.valueLabel || ''}
-                  value={conditionValues[conditionInputId] || ''}
-                  onChange={(e) => handleChangeValue(e, conditionInputId)}
+                  defaultValue={
+                    condition.values ? condition.values[conditionInputId] : ''
+                  }
+                  onBlur={(e) => handleChangeValue(e, conditionInputId)}
                 />
               );
 
@@ -127,7 +148,9 @@ const ConditionFilterItem = (props: Props) => {
                   <select
                     key={conditionInputId}
                     id={conditionInputId}
-                    value={conditionValues[conditionInputId] || ''}
+                    value={
+                      condition.values ? condition.values[conditionInputId] : ''
+                    }
                     onChange={(e) => handleChangeValue(e, conditionInputId)}
                   >
                     {valueOption.valueInputOptions?.map((option: any) => (

@@ -1,0 +1,55 @@
+.container {
+  display: inline-flex;
+}
+
+.container .titleBtn {
+  background-color: white;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 5px 15px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.container .titleBtn:hover {
+  background-color: #f8f9fa;
+}
+
+.iconSort {
+  width: 12px;
+  height: 12px;
+  margin-left: 6px;
+}
+
+.contentContainer {
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+.contentContainer ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.contentContainer ul li {
+  padding: 5px 10px;
+  transition: all .2s ease-in;
+  cursor: pointer;
+}
+
+.contentContainer ul li:not(.active) {
+  padding-left: 30px;
+}
+
+.contentContainer ul li.active::before {
+  content: '\2713';
+  display: inline-block;
+  color: #198754;
+  width: 20px;
+}
+
+.contentContainer ul li:hover {
+  background-color: #cff4fc;
+}

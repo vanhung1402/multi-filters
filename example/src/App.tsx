@@ -12,7 +12,15 @@ const fieldsTest = [
 ];
 
 const App = () => {
-  return <MultiFilters fields={fieldsTest} />
+  const handleChangeFilters = (filters: any) => {
+    console.log('filters: ', filters);
+  };
+
+  const handleChangeOrders = (order: any) => {
+    console.log('order: ', order);
+  }
+
+  return <MultiFilters fields={fieldsTest} hasOrder onChangeFilters={handleChangeFilters} onChangeOrder={handleChangeOrders} />
 }
 
 export default App

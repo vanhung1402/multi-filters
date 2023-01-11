@@ -1,11 +1,8 @@
 /* add css module styles here (optional) */
 
-.test {
-  margin: 2em;
-  padding: 0.5em;
-  border: 2px solid #000;
-  font-size: 2em;
-  text-align: center;
+.wrapper {
+  display: inline-flex;
+  align-items: center;
 }
 
 .container {
@@ -43,4 +40,10 @@
   width: 12px;
   height: 12px;
   margin-left: 6px;
+}
+
+.orderTitle {
+  font-size: 12px;
+  margin-left: 16px;
+  margin-right: 8px;
 }
