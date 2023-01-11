@@ -86,6 +86,19 @@ const ConditionFilterItem = (props: Props) => {
     setConditionValues({ [conditionInputId]: e.target.value });
   };
 
+  const handleChangeDateValue = (
+    e: any,
+    conditionInputId: string,
+    isSelectDate = false
+  ) => {
+    e.stopPropagation();
+    e.persist();
+
+    if (!e.target || !isSelectDate) return;
+
+    setConditionValues({ [conditionInputId]: e.target.value });
+  };
+
   const stopPropagation = (e: any) => e.stopPropagation();
 
   const conditionTypes = useMemo(() => {
@@ -147,6 +160,13 @@ const ConditionFilterItem = (props: Props) => {
                     condition.values ? condition.values[conditionInputId] : ''
                   }
                   onBlur={(e) => handleChangeValue(e, conditionInputId)}
+                  onChange={(e) =>
+                    handleChangeDateValue(
+                      e,
+                      conditionInputId,
+                      ['date', 'datetime-local'].includes(valueOption.valueType)
+                    )
+                  }
                   onClick={stopPropagation}
                 />
               );

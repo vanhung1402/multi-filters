@@ -60,6 +60,8 @@ const OrderBy = (props: Props) => {
     setPopoverOpen(false);
   };
 
+  const stopPropagation = (e: any) => e.stopPropagation();
+
   useEffect(() => {
     onChange && onChange(sortObj);
   }, [sortObj]);
@@ -77,6 +79,7 @@ const OrderBy = (props: Props) => {
         <div
           className={styles.contentContainer}
           style={{ maxHeight: `calc(100vh - ${nudgedTop + 30}px)` }}
+          onClick={stopPropagation}
         >
           <ul>
             {fields.map((field) => (

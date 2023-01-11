@@ -41,8 +41,14 @@ const ConditionFilters = (props: Props) => {
     );
   };
 
+  const stopPropagation = (e: any) => e.stopPropagation();
+
   return (
-    <div className={classNames(styles.container, className)} {...rest}>
+    <div
+      className={classNames(styles.container, className)}
+      onClick={stopPropagation}
+      {...rest}
+    >
       <table className={styles.fieldListTable}>
         <tbody>
           {conditionList.length ? (
