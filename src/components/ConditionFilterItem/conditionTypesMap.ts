@@ -204,14 +204,14 @@ const conditionTypesMap = {
       valueTypeOptions: [
         {
           valueInputType: 'input',
-          valueName: 'min',
-          valueLabel: 'Min',
+          valueName: 'from',
+          valueLabel: 'From',
           valueType: 'datetime-local'
         },
         {
           valueInputType: 'input',
-          valueName: 'max',
-          valueLabel: 'Max',
+          valueName: 'to',
+          valueLabel: 'To',
           valueType: 'datetime-local'
         }
       ]
@@ -222,14 +222,14 @@ const conditionTypesMap = {
       valueTypeOptions: [
         {
           valueInputType: 'input',
-          valueName: 'min',
-          valueLabel: 'Min',
+          valueName: 'from',
+          valueLabel: 'From',
           valueType: 'datetime-local'
         },
         {
           valueInputType: 'input',
-          valueName: 'max',
-          valueLabel: 'Max',
+          valueName: 'to',
+          valueLabel: 'To',
           valueType: 'datetime-local'
         }
       ]

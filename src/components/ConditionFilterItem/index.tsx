@@ -12,14 +12,22 @@ interface Props {
   condition: any;
   fields: FieldType[];
   onChangeField: any;
+  onChangeValues: any;
   onRemoveCondition: any;
 }
 
 const ConditionFilterItem = (props: Props) => {
-  const { fields, condition, onChangeField, onRemoveCondition } = props;
+  const {
+    fields,
+    condition,
+    onChangeField,
+    onChangeValues,
+    onRemoveCondition
+  } = props;
 
   const [selectedField, setSelectedField] = useState(condition.field);
   const [selectedConditionType, setSelectedConditionType] = useState<any>({});
+  const [conditionValues, setConditionValues] = useState<any>({});
 
   const conditionTypes = useMemo(() => {
     const dataType = fields.find(
@@ -37,6 +45,10 @@ const ConditionFilterItem = (props: Props) => {
     !!conditionTypes?.length && setSelectedConditionType(conditionTypes[0]);
   }, [conditionTypes]);
 
+  useEffect(() => {
+    !!Object.keys(conditionValues).length && onChangeValues(conditionValues);
+  }, [conditionValues]);
+
   const handleChangeFilterField = (e: any) => {
     setSelectedField(e.target.value);
   };
@@ -50,6 +62,18 @@ const ConditionFilterItem = (props: Props) => {
   const handleClickRemoveCondition = (e: any) => {
     onRemoveCondition();
     e.stopPropagation();
+  };
+
+  const handleChangeValue = (e: any, conditionInputId: string) => {
+    e.persist();
+
+    if (!e.target) return;
+
+    console.log('conditionValues: ', conditionValues);
+    setConditionValues((conditionValues: any) => ({
+      ...conditionValues,
+      [conditionInputId]: e.target.value
+    }));
   };
 
   return (
@@ -87,9 +111,25 @@ const ConditionFilterItem = (props: Props) => {
         <div className={styles.conditionValueTypeOptions}>
           {selectedConditionType.valueTypeOptions?.map(
             (valueOption: any, index: number) => {
+              const conditionInputId = `input-${condition.id}-${index}`;
+              let InputComponent = () => (
+                <input
+                  key={conditionInputId}
+                  type={valueOption.valueType}
+                  placeholder={valueOption.valueLabel || ''}
+                  value={conditionValues[conditionInputId] || ''}
+                  onChange={(e) => handleChangeValue(e, conditionInputId)}
+                />
+              );
+
               if (valueOption.valueInputType === 'select') {
-                return (
-                  <select key={index}>
+                InputComponent = () => (
+                  <select
+                    key={conditionInputId}
+                    id={conditionInputId}
+                    value={conditionValues[conditionInputId] || ''}
+                    onChange={(e) => handleChangeValue(e, conditionInputId)}
+                  >
                     {valueOption.valueInputOptions?.map((option: any) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -100,21 +140,26 @@ const ConditionFilterItem = (props: Props) => {
               }
 
               return (
-                <input
-                  key={index}
-                  type={valueOption.valueType}
-                  placeholder={valueOption.valueLabel || ''}
-                />
+                <div key={conditionInputId} className={styles.conditionInput}>
+                  {!!valueOption?.valueLabel && (
+                    <label htmlFor={conditionInputId}>
+                      {valueOption?.valueLabel}:
+                    </label>
+                  )}
+                  <InputComponent />
+                </div>
               );
             }
           )}
         </div>
       </td>
       <td className={styles.removeCondition}>
-        <TrashIcon
-          className={styles.iconRemove}
+        <button
+          className={styles.btnRemoveCondition}
           onClick={(e: any) => handleClickRemoveCondition(e)}
-        />
+        >
+          <TrashIcon className={styles.iconRemove} />
+        </button>
       </td>
     </tr>
   );

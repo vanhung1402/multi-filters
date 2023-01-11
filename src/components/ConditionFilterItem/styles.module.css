@@ -8,13 +8,27 @@
   transition: all .2s ease-in;
 }
 
-.removeCondition:hover {
-  color: #FF0032;
+.btnRemoveCondition {
+  background-color: #6c757d;
   fill: currentColor;
+  color: white;
+  border-radius: 5px;
   cursor: pointer;
+  border: 1px solid #6c757d;
+}
+
+.btnRemoveCondition:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
 }
 
 .conditionValueTypeOptions {
   display: flex;
   gap: 4px;
+}
+
+.conditionInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }

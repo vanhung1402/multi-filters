@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+.container .btnAddAnotherFilter:hover {
+  background-color: #f8f9fa;
+}
+
 .container .btnAddAnotherFilter::before {
   content: "\2795";
   margin-right: 4px;

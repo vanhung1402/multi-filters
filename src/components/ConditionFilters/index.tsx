@@ -45,6 +45,11 @@ const ConditionFilters = (props: Props) => {
     );
   };
 
+  const handleChangeValue = (conditionId: number, conditionValues: any) => {
+    console.log('conditionValues: ', conditionValues);
+    console.log('conditionId: ', conditionId);
+  };
+
   return (
     <div className={classNames(styles.container, className)} {...rest}>
       <table className={styles.fieldListTable}>
@@ -57,6 +62,9 @@ const ConditionFilters = (props: Props) => {
                 fields={fields}
                 onChangeField={(fieldKey: string) =>
                   handleChangeField(condition.id, fieldKey)
+                }
+                onChangeValues={(conditionValues: any) =>
+                  handleChangeValue(condition.id, conditionValues)
                 }
                 onRemoveCondition={() => handleRemoveCondition(condition.id)}
               />
