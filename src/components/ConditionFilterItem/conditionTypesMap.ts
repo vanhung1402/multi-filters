@@ -126,6 +126,11 @@ const conditionTypesMap = {
   ],
   date: [
     {
+      key: 'equal',
+      label: 'Equal',
+      valueTypeOptions: [{ valueInputType: 'input', valueType: 'date' }]
+    },
+    {
       key: 'is_before',
       label: 'Is before',
       valueTypeOptions: [{ valueInputType: 'input', valueType: 'date' }]
@@ -187,6 +192,13 @@ const conditionTypesMap = {
     }
   ],
   datetime: [
+    {
+      key: 'equal',
+      label: 'Equal',
+      valueTypeOptions: [
+        { valueInputType: 'input', valueType: 'datetime-local' }
+      ]
+    },
     {
       key: 'is_before',
       label: 'Is before',

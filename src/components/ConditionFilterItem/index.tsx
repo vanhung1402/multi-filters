@@ -59,7 +59,7 @@ const ConditionFilterItem = (props: Props) => {
     setConditionList((conditionList: any[]) =>
       conditionList.map((c) =>
         c.id === condition.id
-          ? { ...c, field: e.target.value, type: conditionTypes[0] }
+          ? { ...c, field: e.target.value, type: conditionTypes[0], values: {} }
           : c
       )
     );
