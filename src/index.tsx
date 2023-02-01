@@ -21,6 +21,7 @@ interface Props {
   onChangeFilters?: any;
   hasOrder?: boolean;
   onChangeOrder?: any;
+  blackListFilterKeys?: string[];
 }
 
 const MultiFilters = ({
@@ -32,7 +33,8 @@ const MultiFilters = ({
   classNameTitleOrder,
   onChangeFilters,
   hasOrder,
-  onChangeOrder
+  onChangeOrder,
+  blackListFilterKeys
 }: Props) => {
   const [isPopoverOpen, setPopoverOpen] = useState<boolean>(false);
 
@@ -66,6 +68,7 @@ const MultiFilters = ({
             style={{ maxHeight: `calc(100vh - ${nudgedTop + 30}px)` }}
             conditionList={conditionList}
             setConditionList={setConditionList}
+            blackListFilterKeys={blackListFilterKeys}
           />
         )}
       >

@@ -11,6 +11,8 @@ const fieldsTest = [
   { key: 'created_at', label: 'Created at', dataType: 'datetime' }
 ];
 
+const filterBlackList = ['is_empty', 'not_between', 'is_between', 'regex', 'not_contains', 'contains'];
+
 const App = () => {
   const handleChangeFilters = (filters: any) => {
     console.log('filters: ', filters);
@@ -20,7 +22,7 @@ const App = () => {
     console.log('order: ', order);
   }
 
-  return <MultiFilters fields={fieldsTest} hasOrder onChangeFilters={handleChangeFilters} onChangeOrder={handleChangeOrders} />
+  return <MultiFilters fields={fieldsTest} hasOrder onChangeFilters={handleChangeFilters} onChangeOrder={handleChangeOrders} blackListFilterKeys={filterBlackList} />
 }
 
 export default App

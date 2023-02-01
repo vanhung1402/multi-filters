@@ -13,10 +13,17 @@ interface Props {
   fields: FieldType[];
   setConditionList: any;
   onRemoveCondition: any;
+  blackListFilterKeys?: string[];
 }
 
 const ConditionFilterItem = (props: Props) => {
-  const { fields, condition, setConditionList, onRemoveCondition } = props;
+  const {
+    fields,
+    condition,
+    setConditionList,
+    onRemoveCondition,
+    blackListFilterKeys
+  } = props;
 
   const getConditionType = (conditionField: string) => {
     const dataType = fields.find(
@@ -102,7 +109,13 @@ const ConditionFilterItem = (props: Props) => {
   const stopPropagation = (e: any) => e.stopPropagation();
 
   const conditionTypes = useMemo(() => {
-    return getConditionType(condition.field);
+    const conditionTypesRes = getConditionType(condition.field);
+
+    const conditionTypesFiltered = conditionTypesRes.filter(
+      (type: any) => !blackListFilterKeys?.includes(type.key)
+    );
+
+    return conditionTypesFiltered;
   }, [condition.field]);
 
   useEffect(() => {

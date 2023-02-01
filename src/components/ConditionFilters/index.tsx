@@ -12,10 +12,18 @@ interface Props {
   setConditionList: any;
   style?: object;
   className?: string;
+  blackListFilterKeys?: string[];
 }
 
 const ConditionFilters = (props: Props) => {
-  const { fields, conditionList, setConditionList, className, ...rest } = props;
+  const {
+    fields,
+    conditionList,
+    setConditionList,
+    className,
+    blackListFilterKeys,
+    ...rest
+  } = props;
 
   const handleClickAddAnotherFilter = useCallback(
     (e: any) => {
@@ -27,6 +35,7 @@ const ConditionFilters = (props: Props) => {
         values: null,
         type: {}
       };
+
       setConditionList((conditionList: any[]) => [
         ...conditionList,
         newCondition
@@ -58,6 +67,7 @@ const ConditionFilters = (props: Props) => {
                 condition={condition}
                 fields={fields}
                 setConditionList={setConditionList}
+                blackListFilterKeys={blackListFilterKeys}
                 onRemoveCondition={() => handleRemoveCondition(condition.id)}
               />
             ))

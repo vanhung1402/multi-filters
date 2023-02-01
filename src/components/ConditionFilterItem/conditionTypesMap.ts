@@ -141,6 +141,16 @@ const conditionTypesMap = {
       valueTypeOptions: [{ valueInputType: 'input', valueType: 'date' }]
     },
     {
+      key: 'is_from',
+      label: 'Is from',
+      valueTypeOptions: [{ valueInputType: 'input', valueType: 'date' }]
+    },
+    {
+      key: 'is_until',
+      label: 'Is until',
+      valueTypeOptions: [{ valueInputType: 'input', valueType: 'date' }]
+    },
+    {
       key: 'is_between',
       label: 'Is between',
       valueTypeOptions: [
@@ -209,6 +219,20 @@ const conditionTypesMap = {
     {
       key: 'is_after',
       label: 'Is after',
+      valueTypeOptions: [
+        { valueInputType: 'input', valueType: 'datetime-local' }
+      ]
+    },
+    {
+      key: 'is_from',
+      label: 'Is from',
+      valueTypeOptions: [
+        { valueInputType: 'input', valueType: 'datetime-local' }
+      ]
+    },
+    {
+      key: 'is_until',
+      label: 'Is until',
       valueTypeOptions: [
         { valueInputType: 'input', valueType: 'datetime-local' }
       ]
