@@ -8,6 +8,8 @@ import FieldType from 'types/FieldType';
 
 import styles from './styles.module.css';
 
+const DATA_TYPE_CUSTOM = 'custom';
+
 interface Props {
   condition: any;
   fields: FieldType[];
@@ -26,9 +28,11 @@ const ConditionFilterItem = (props: Props) => {
   } = props;
 
   const getConditionType = (conditionField: string) => {
-    const dataType = fields.find(
-      (field) => field.key === conditionField
-    )?.dataType;
+    const field = fields.find((field) => field.key === conditionField);
+
+    const dataType = field?.dataType;
+
+    if (dataType === DATA_TYPE_CUSTOM) return field?.dataCustom || [];
 
     return conditionTypesMap[dataType || DEFAULT_TYPE];
   };
@@ -63,10 +67,16 @@ const ConditionFilterItem = (props: Props) => {
     if (!e.target) return;
 
     const conditionTypes = getConditionType(e.target.value);
+
     setConditionList((conditionList: any[]) =>
       conditionList.map((c) =>
         c.id === condition.id
-          ? { ...c, field: e.target.value, type: conditionTypes[0], values: {} }
+          ? {
+              ...c,
+              field: e.target.value,
+              type: conditionTypes ? conditionTypes[0] : {},
+              values: {}
+            }
           : c
       )
     );
@@ -111,11 +121,11 @@ const ConditionFilterItem = (props: Props) => {
   const conditionTypes = useMemo(() => {
     const conditionTypesRes = getConditionType(condition.field);
 
-    const conditionTypesFiltered = conditionTypesRes.filter(
+    const conditionTypesFiltered = conditionTypesRes?.filter(
       (type: any) => !blackListFilterKeys?.includes(type.key)
     );
 
-    return conditionTypesFiltered;
+    return conditionTypesFiltered || [];
   }, [condition.field]);
 
   useEffect(() => {
@@ -150,7 +160,7 @@ const ConditionFilterItem = (props: Props) => {
           onChange={handleChangeFilterConditionType}
           onClick={stopPropagation}
         >
-          {conditionTypes.map((type: any) => (
+          {conditionTypes?.map((type: any) => (
             <option key={type.key} value={type.key}>
               {type.label}
             </option>
